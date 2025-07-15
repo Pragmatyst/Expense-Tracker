@@ -1,0 +1,107 @@
+:root {
+    --primary: #4CAF50;
+    --secondary: #ffffff;
+    --danger: #f44336;
+    --gray: #f0f0f0;
+    --text: #333;
+  }
+  
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--gray);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  h1 {
+    margin: 20px 0;
+    color: var(--primary);
+  }
+  
+  .container {
+    width: 95%;
+    max-width: 600px;
+    background: var(--secondary);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+  
+  input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  
+  button {
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .add-btn {
+    background: var(--primary);
+    color: white;
+  }
+  
+  .expense-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .expense-item {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .expense-details {
+    flex-grow: 1;
+  }
+  
+  .expense-actions button {
+    margin-left: 5px;
+    padding: 5px 8px;
+    border-radius: 5px;
+  }
+  
+  .edit-btn {
+    background: #2196F3;
+    color: white;
+  }
+  
+  .delete-btn {
+    background: var(--danger);
+    color: white;
+  }
+  
+  @media (max-width: 600px) {
+    .expense-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .expense-actions {
+      margin-top: 10px;
+    }
+  }
