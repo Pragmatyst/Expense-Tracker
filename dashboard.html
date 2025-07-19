@@ -9,7 +9,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #333; /* Dark background for the whole page */
+            background-color: #333; 
             margin: 0;
             display: flex;
             justify-content: center;
@@ -21,24 +21,24 @@
         #app-wrapper {
             display: flex;
             width: 100%;
-            max-width: 1200px; /* Max width for the entire app */
-            min-height: 90vh; /* Make app tall enough */
+            max-width: 1200px; 
+            min-height: 90vh; 
             border-radius: 1rem;
-            overflow: hidden; /* Ensures rounded corners apply to children */
+            overflow: hidden; 
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
             margin: auto;
         }
 
         /* Sidebar styling */
         #sidebar {
-            width: 250px; /* Fixed width for sidebar */
-            background-color: #4a148c; /* Darker purple */
+            width: 250px; 
+            background-color: #4a148c; 
             padding: 2rem 1rem;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Push logout to bottom */
+            justify-content: space-between; 
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-            display: none; /* Changed from initial 'flex' to 'none' for default hidden state */
+            display: none; 
         }
 
         /* When sidebar should be visible, apply flex */
@@ -51,7 +51,7 @@
             width: 100%;
             padding: 1rem 1.5rem;
             margin-bottom: 1rem;
-            background-color: #6a1b9a; /* Lighter purple for buttons */
+            background-color: #6a1b9a; 
             color: white;
             font-weight: 600;
             text-align: left;
@@ -60,17 +60,17 @@
         }
 
         .sidebar-nav-item:hover {
-            background-color: #7b29b0; /* Slightly darker on hover */
+            background-color: #7b29b0;
         }
         /* Active state for sidebar items */
         .sidebar-nav-item.active-sidebar-item {
-            background-color: #7b29b0; /* Active item color */
-            box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.5); /* Highlight active item */
+            background-color: #7b29b0; 
+            box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.5); 
         }
 
         #logout-sidebar-button {
-            background-color: #dc2626; /* Red for logout */
-            margin-top: auto; /* Pushes it to the bottom */
+            background-color: #dc2626; 
+            margin-top: auto; 
         }
 
         #logout-sidebar-button:hover {
@@ -79,13 +79,13 @@
 
         /* Main content area */
         #main-content {
-            flex-grow: 1; /* Takes remaining space */
-            background-color: #2b2b2b; /* Dark grey background */
+            flex-grow: 1; 
+            background-color: #2b2b2b; 
             padding: 2rem;
             display: flex;
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
-            overflow-y: auto; /* Enable scrolling for content if needed */
+            justify-content: center; 
+            align-items: center; 
+            overflow-y: auto;
         }
 
         /* Expense tracker card (now inside main-content) */
@@ -95,7 +95,7 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             padding: 2rem;
             width: 100%;
-            max-width: 28rem; /* Equivalent to md:max-w-md */
+            max-width: 28rem; 
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
@@ -124,33 +124,33 @@
             transition: all 0.2s ease-in-out;
         }
         #show-login.active, #show-signup.active {
-            background-color: #4a148c; /* Dark purple for active tab */
+            background-color: #4a148c; 
             color: white;
         }
         #show-login:not(.active), #show-signup:not(.active) {
-            background-color: #e0e7ff; /* Lighter background for inactive */
-            color: #4a148c; /* Dark purple text for inactive */
+            background-color: #e0e7ff; 
+            color: #4a148c; 
         }
 
         /* Responsive adjustments for dashboard */
         @media (max-width: 768px) {
             #app-wrapper {
-                flex-direction: column; /* Stack sidebar and content on small screens */
+                flex-direction: column;
                 min-height: 100vh;
-                border-radius: 0; /* No rounded corners on small screens for full width */
+                border-radius: 0; 
             }
             #sidebar {
-                width: 100%; /* Full width sidebar */
+                width: 100%; 
                 padding: 1rem;
-                flex-direction: row; /* Horizontal nav items */
-                flex-wrap: wrap; /* Allow items to wrap */
+                flex-direction: row; 
+                flex-wrap: wrap; 
                 justify-content: center;
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             }
             .sidebar-nav-item {
                 margin: 0.5rem;
                 padding: 0.75rem 1rem;
-                flex-grow: 1; /* Allow items to grow */
+                flex-grow: 1; 
                 text-align: center;
             }
             #logout-sidebar-button {
@@ -158,10 +158,10 @@
             }
             #main-content {
                 padding: 1rem;
-                align-items: center; /* Center content vertically on small screens */
+                align-items: center; 
             }
             .expense-card {
-                max-width: 100%; /* Full width card on small screens */
+                max-width: 100%;
                 padding: 1.5rem;
             }
         }
@@ -377,13 +377,6 @@
 
 
         // --- Helper Functions ---
-
-        /**
-         * Displays a message in a designated message box.
-         * @param {string} elementId - The ID of the message box element.
-         * @param {string} message - The message to display.
-         * @param {'success'|'error'} type - The type of message (for styling).
-         */
         function displayMessage(elementId, message, type) {
             const element = document.getElementById(elementId);
             if (element) {
@@ -397,10 +390,6 @@
             }
         }
 
-        /**
-         * Toggles the visibility of authentication forms.
-         * @param {string} formToShow - 'login' or 'signup'.
-         */
         function toggleAuthForms(formToShow) {
             if (formToShow === 'login') {
                 loginForm.classList.remove('hidden');
@@ -416,10 +405,6 @@
             authMessageDiv.classList.add('hidden'); // Clear any previous auth messages
         }
 
-        /**
-         * Sets the active state for sidebar navigation items.
-         * @param {HTMLElement} activeBtn - The button to set as active.
-         */
         function setActiveSidebarItem(activeBtn) {
             const allSidebarItems = document.querySelectorAll('.sidebar-nav-item');
             allSidebarItems.forEach(item => {
@@ -428,18 +413,13 @@
             activeBtn.classList.add('active-sidebar-item');
         }
 
-        /**
-         * Shows a specific section and hides all other main content sections.
-         * @param {HTMLElement} sectionToShow - The section to make visible.
-         * @param {HTMLElement} activeSidebarBtn - The sidebar button corresponding to the section.
-         */
+
         function showSection(sectionToShow, activeSidebarBtn = null) {
             // Hide all main content sections
             authSection.classList.add('hidden');
             expenseTrackerSection.classList.add('hidden');
             investmentSection.classList.add('hidden');
-            // contactUsSection.classList.add('hidden'); // REMOVED: Ensure Contact Us section is hidden
-            // Add more sections here as they are created (e.g., budgetsSection.classList.add('hidden');)
+
 
             // Show the requested section
             sectionToShow.classList.remove('hidden');
@@ -450,11 +430,6 @@
             }
         }
 
-
-        /**
-         * Renders the list of expenses and calculates the total.
-         * @param {Array<Object>} currentExpenses - An array of expense objects.
-         */
         function renderExpenses(currentExpenses) {
             expensesListDiv.innerHTML = ''; // Clear previous list
             let total = 0;
@@ -490,10 +465,7 @@
             totalExpensesSpan.textContent = `$${total.toFixed(2)}`;
         }
 
-        /**
-         * Renders the list of investments and calculates the total.
-         * @param {Array<Object>} currentInvestments - An array of investment objects.
-         */
+
         function renderInvestments(currentInvestments) {
             investmentsListDiv.innerHTML = ''; // Clear previous list
             let total = 0;
@@ -621,10 +593,6 @@
             showSection(expenseTrackerSection, messagesSidebarBtn);
         });
 
-        // contactUsSidebarBtn.addEventListener('click', () => { // REMOVED
-        //     // No "coming soon" message needed here as we are showing the section
-        //     showSection(contactUsSection, contactUsSidebarBtn); // Changed to show the actual contact us section
-        // });
 
         // Handle Adding New Expense
         addExpenseForm.addEventListener('submit', async (e) => {
@@ -748,13 +716,13 @@
 
         // --- Firebase Authentication State Listener ---
         onAuthStateChanged(auth, async (user) => {
-            isAuthReady = true; // Auth state has been checked
+            isAuthReady = true;
             if (user) {
                 // User is signed in.
                 userId = user.uid;
                 sidebar.classList.add('visible');
-                // Ensure Contact Us is hidden when another section (like expenses) is shown on login
-                showSection(expenseTrackerSection, expensesSidebarBtn); // Show Expenses by default on login 
+              
+                showSection(expenseTrackerSection, expensesSidebarBtn); 
 
                 console.log("User logged in:", userId);
 
@@ -803,8 +771,8 @@
                 // User is signed out.
                 userId = null;
                 sidebar.classList.remove('visible');
-                showSection(authSection); // Show auth section on logout 
-                toggleAuthForms('login'); // Reset to login form 
+                showSection(authSection); 
+                toggleAuthForms('login'); 
                 console.log("User logged out.");
             }
         });
@@ -817,8 +785,7 @@
                 console.error("Auth object not initialized. Cannot proceed with authentication.");
                 displayMessage("auth-message", "Firebase Auth not initialized. Please check console for errors.", "error");
             }
-            // Ensure contactUsSection is hidden on initial load
-            // contactUsSection.classList.add('hidden'); // REMOVED
+
         };
     </script>
 </body>
