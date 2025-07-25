@@ -1,4 +1,3 @@
-
         // Firebase imports
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
         import {
@@ -294,10 +293,10 @@
 
         // --- Sidebar Navigation Handlers ---
         // New sidebar button event listeners
-        profileSidebarBtn.addEventListener('click', () => {
-            displayMessage("expense-message", "Profile page coming soon!", "success");
-            showSection(expenseTrackerSection, profileSidebarBtn);
-        });
+        // REMOVED: profileSidebarBtn.addEventListener('click', () => {
+        // REMOVED:    displayMessage("expense-message", "Profile page coming soon!", "success");
+        // REMOVED:    showSection(expenseTrackerSection, profileSidebarBtn);
+        // REMOVED: });
 
         expensesSidebarBtn.addEventListener('click', () => {
             showSection(expenseTrackerSection, expensesSidebarBtn);
