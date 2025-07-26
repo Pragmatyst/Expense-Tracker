@@ -137,13 +137,13 @@ input, button, select {
 /* Styles for Add Expense/Investment buttons */
 #add-expense-form button[type="submit"],
 #add-investment-form button[type="submit"] {
-    background-color: #6a1b9a; /* Darker purple, similar to sidebar items */
+    background-color: #6a1b9a; 
     color: white;
     font-weight: 600;
-    padding: 0.75rem 1.5rem; /* Adjust padding for better look */
+    padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
     transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
 #add-expense-form button[type="submit"]:hover,

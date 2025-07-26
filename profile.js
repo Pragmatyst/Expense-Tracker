@@ -4,8 +4,6 @@ import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/fi
 import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 // --- Firebase Initialization ---
-// IMPORTANT: Use your actual Firebase config from app.js or your Firebase project.
-// This should be the same config used in app.js
 const firebaseConfig = {
     apiKey: "AIzaSyBmcBMtmd_DDPUiSRnzYiuspBC-GPKeAso", // Replace with your actual API Key
     authDomain: "expensetracker-b0af0.firebaseapp.com",

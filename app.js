@@ -311,11 +311,6 @@
             showSection(expenseTrackerSection, aboutSidebarBtn);
         });
 
-        messagesSidebarBtn.addEventListener('click', () => {
-            displayMessage("expense-message", "Messages page coming soon!", "success");
-            showSection(expenseTrackerSection, messagesSidebarBtn);
-        });
-
 
         // Handle Adding New Expense
         addExpenseForm.addEventListener('submit', async (e) => {

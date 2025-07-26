@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send a Message</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <style>
+        /* Add any specific styles for messages.html here if needed, or rely on style.css */
+    </style>
+</head>
+
+<body>
+    <div id="app-wrapper">
+        <!-- Sidebar for messages.html - Keep it consistent with dashboard.html -->
+        <nav id="sidebar" class="visible"> <!-- Add 'visible' class initially for messages.html -->
+            <div>
+                <a id="profile-sidebar-btn" class="sidebar-nav-item" href="profile.html">Profile</a>
+                <a id="expenses-sidebar-btn" class="sidebar-nav-item" href="dashboard.html">Expenses</a>
+                <a id="investments-sidebar-btn" class="sidebar-nav-item" href="dashboard.html">Investments</a>
+                <a id="about-sidebar-btn" class="sidebar-nav-item" href="dashboard.html">About</a>
+                <a id="messages-sidebar-btn" class="sidebar-nav-item active-sidebar-item" href="messages.html">Contact Us</a>
+            </div>
+            <button id="logout-sidebar-button" class="sidebar-nav-item">LOG OUT</button>
+        </nav>
+
+        <div id="main-content">
+            <!-- Messages Section -->
+            <div id="messages-section" class="expense-card">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Send a Message</h2>
+
+                <form id="contact-form" class="flex flex-col gap-3 p-4 bg-gray-50 rounded-lg shadow-inner">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-2">Contact Us</h3>
+                    <input type="text" id="contact-name" name="from_name" placeholder="Your Name"
+                        class="p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
+                        required>
+                    <input type="email" id="contact-email" name="from_email" placeholder="Your Email"
+                        class="p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
+                        required>
+                    <textarea id="contact-message" name="message" placeholder="Your Message" rows="5"
+                        class="p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out resize-y"
+                        required></textarea>
+                    <button type="submit"
+                        class="p-2 bg-indigo-600 text-white rounded-md font-semibold hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-150 ease-in-out">Send
+                        Message</button>
+                </form>
+                <div id="contact-message-box" class="message-box hidden"></div>
+            </div>
+            <!-- End Messages Section -->
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="module" src="messages.js"></script>
+</body>
+
+</html>
