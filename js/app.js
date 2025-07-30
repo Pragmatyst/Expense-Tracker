@@ -56,7 +56,7 @@
         const authSection = document.getElementById('auth-section');
         const expenseTrackerSection = document.getElementById('expense-tracker-section');
         const investmentSection = document.getElementById('investment-section');
-        // const contactUsSection = document.getElementById('contact-us-section'); // REMOVED: Get the contact us section
+        // const contactUsSection = document.getElementById('contact-us-section'); 
         const showLoginBtn = document.getElementById('show-login');
         const showSignupBtn = document.getElementById('show-signup');
         const loginForm = document.getElementById('login-form');
@@ -292,11 +292,7 @@
         });
 
         // --- Sidebar Navigation Handlers ---
-        // New sidebar button event listeners
-        // REMOVED: profileSidebarBtn.addEventListener('click', () => {
-        // REMOVED:    displayMessage("expense-message", "Profile page coming soon!", "success");
-        // REMOVED:    showSection(expenseTrackerSection, profileSidebarBtn);
-        // REMOVED: });
+
 
         expensesSidebarBtn.addEventListener('click', () => {
             showSection(expenseTrackerSection, expensesSidebarBtn);
@@ -306,10 +302,12 @@
             showSection(investmentSection, investmentsSidebarBtn);
         });
 
-        aboutSidebarBtn.addEventListener('click', () => {
-            displayMessage("expense-message", "About page coming soon!", "success");
-            showSection(expenseTrackerSection, aboutSidebarBtn);
+          aboutSidebarBtn.addEventListener('click', () => {
+            showSection(aboutSidebarSection, aboutSidebarBtn);
         });
+        
+
+     
 
 
         // Handle Adding New Expense

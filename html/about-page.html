@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <!-- Tailwind CSS CDN for utility classes -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter for consistent typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Link to your custom CSS file (style.css) -->
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+
+<body>
+   
+    <div id="app-wrapper">
+        <nav id="sidebar" class="visible">
+            <div>
+                <div class="text-2xl font-bold mb-8 text-center">
+                    <a href="#" class="hover:text-gray-200 transition duration-300 ease-in-out">About Us</a>
+                </div>
+                <!-- Navigation items -->
+                <a id="profile-sidebar-btn" class="sidebar-nav-item" href="profile.html">Profile</a>
+                <a id="expenses-sidebar-btn" class="sidebar-nav-item" href="dashboard.html">Expenses</a>
+                <a id="investments-sidebar-btn" class="sidebar-nav-item" href="dashboard.html">Investments</a>
+                <a id="about-sidebar-btn" class="sidebar-nav-item active-sidebar-item" href="about.html">About</a>
+                <a id="messages-sidebar-btn" class="sidebar-nav-item" href="messages.html">Messages</a>
+            </div>
+            <!-- Logout button -->
+            <button id="logout-sidebar-button" class="sidebar-nav-item">LOG OUT</button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <div id="main-content">
+
+            <div class="expense-card max-w-sm max-h-[70vh] overflow-y-auto">
+                <h1 class="text-4xl font-extrabold text-gray-900 mb-6 text-center">About Our Website</h1>
+
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Our Mission</h2>
+                    <p class="text-gray-700 leading-relaxed">
+                        At <span class="font-semibold text-indigo-600">Expense Tracker</span>, our mission is to empower individuals and businesses to take control of their financial lives. We believe that managing expenses and investments should be straightforward, insightful, and accessible to everyone. Our platform provides intuitive tools to track spending, monitor investments, and gain a clear understanding of your financial health.
+                    </p>
+                </section>
+
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">What We Offer</h2>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li><span class="font-medium text-indigo-600">Expense Tracking:</span> Easily log and categorize your daily expenditures to see where your money goes.</li>
+                        <li><span class="font-medium text-indigo-600">Investment Monitoring:</span> Keep an eye on your investment portfolio with real-time updates and performance insights.</li>
+                        <li><span class="font-medium text-indigo-600">Financial Insights:</span> Generate reports and visualizations to understand your spending patterns and investment growth.</li>
+                        <li><span class="font-medium text-indigo-600">User-Friendly Interface:</span> A clean and intuitive design ensures a seamless experience for all users.</li>
+                    </ul>
+                </section>
+
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Our Story</h2>
+                    <p class="text-gray-700 leading-relaxed">
+                        Founded in 2023, Expense Tracker started with a simple idea: to simplify personal finance. We noticed a gap in the market for a tool that was both powerful and easy to use. Our team of dedicated developers and financial enthusiasts worked tirelessly to build a platform that addresses the real-world needs of our users. We are continuously evolving, adding new features, and improving our services based on your feedback.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Join Our Community</h2>
+                    <p class="text-gray-700 leading-relaxed">
+                        We are committed to helping you achieve your financial goals. Join thousands of satisfied users who are already benefiting from Expense Tracker. If you have any questions or feedback, please don't hesitate to <a href="messages.html" class="text-indigo-600 hover:underline font-semibold">contact us</a>.
+                    </p>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to your custom JavaScript file -->
+    <script type="module" src="../js/about.js"></script>
+</body>
+
+</html>

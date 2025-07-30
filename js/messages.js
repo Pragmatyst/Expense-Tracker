@@ -7,7 +7,7 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase
 // --- Firebase Initialization ---
 // IMPORTANT: Use your actual Firebase config from app.js or your Firebase project.
 const firebaseConfig = {
-    apiKey: "AIzaSyBmcBMtmd_DDPUiSRnzYiuspBC-GPKeAso", // Replace with your actual API Key
+    apiKey: "AIzaSyBmcBMtmd_DDPUiSRnzYiuspBC-GPKeAso", 
     authDomain: "expensetracker-b0af0.firebaseapp.com",
     projectId: "expensetracker-b0af0",
     storageBucket: "expensetracker-b0af0.firebaseapp.com",
