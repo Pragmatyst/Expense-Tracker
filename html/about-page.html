@@ -5,34 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us</title>
-    <!-- Tailwind CSS CDN for utility classes -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts - Inter for consistent typography -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Link to your custom CSS file (style.css) -->
     <link href="../css/style.css" rel="stylesheet">
 </head>
 
 <body>
-   
     <div id="app-wrapper">
         <nav id="sidebar" class="visible">
             <div>
                 <div class="text-2xl font-bold mb-8 text-center">
                     <a href="#" class="hover:text-gray-200 transition duration-300 ease-in-out">About Us</a>
                 </div>
-                <!-- Navigation items -->
+    
                 <a id="profile-sidebar-btn" class="sidebar-nav-item" href="profile.html">Profile</a>
                 <a id="expenses-sidebar-btn" class="sidebar-nav-item" href="dashboard.html">Expenses</a>
                 <a id="investments-sidebar-btn" class="sidebar-nav-item" href="dashboard.html">Investments</a>
                 <a id="about-sidebar-btn" class="sidebar-nav-item active-sidebar-item" href="about.html">About</a>
                 <a id="messages-sidebar-btn" class="sidebar-nav-item" href="messages.html">Messages</a>
             </div>
-            <!-- Logout button -->
+
             <button id="logout-sidebar-button" class="sidebar-nav-item">LOG OUT</button>
         </nav>
-
-        <!-- Main Content Area -->
         <div id="main-content">
 
             <div class="expense-card max-w-sm max-h-[70vh] overflow-y-auto">
@@ -71,8 +65,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Link to your custom JavaScript file -->
     <script type="module" src="../js/about.js"></script>
 </body>
 

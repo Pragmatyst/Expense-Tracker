@@ -32,8 +32,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             auth = getAuth(app);
             console.log("Firebase initialized in about.js successfully.");
 
-            // Attempt to sign in with custom token if available (for Canvas environment)
-            // Or sign in anonymously if no token is provided.
             if (typeof __initial_auth_token !== 'undefined') {
                 await signInWithCustomToken(auth, __initial_auth_token);
                 console.log("Signed in with custom token in about.js.");
@@ -87,18 +85,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Handle logout button click
-    if (logoutBtn && auth) { // Ensure auth is initialized before attaching listener
+    if (logoutBtn && auth) {
         logoutBtn.addEventListener('click', async () => {
             try {
                 await signOut(auth);
                 console.log('User logged out successfully from about.js.');
-                // Redirect to dashboard.html after successful logout
-                // app.js on dashboard.html will detect the logged out state
                 window.location.href = 'dashboard.html';
             } catch (error) {
                 console.error("Logout error from about.js:", error);
-                // You might want to display a message to the user here using a custom modal
-                // instead of console.error
             }
         });
     } else if (logoutBtn) {
@@ -109,7 +103,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             window.location.href = 'dashboard.html'; // Fallback redirect
         });
     }
-
 
     // Set the 'About' sidebar item as active-sidebar-item when the page loads
     if (aboutBtn) {

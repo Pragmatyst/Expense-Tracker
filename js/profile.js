@@ -94,7 +94,7 @@ async function fetchUserProfile(uid) {
                 fullName: auth.currentUser.displayName || '',
                 createdAt: new Date().toISOString(),
                 // Add other default fields if necessary
-            }, { merge: true }); // Use merge:true to avoid overwriting existing fields
+            }, { merge: true });
         }
     } catch (error) {
         console.error("Error fetching user profile:", error);
@@ -147,7 +147,6 @@ logoutButton.addEventListener('click', async () => {
 
 
 // --- Firebase Authentication State Listener ---
-// This runs whenever the user's login state changes
 onAuthStateChanged(auth, (user) => {
     if (user) {
         // User is signed in.

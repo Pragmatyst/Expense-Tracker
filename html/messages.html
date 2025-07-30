@@ -9,14 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
     <style>
-        /* Add any specific styles for messages.html here if needed, or rely on style.css */
     </style>
 </head>
 
 <body>
     <div id="app-wrapper">
-        <!-- Sidebar for messages.html - Keep it consistent with dashboard.html -->
-        <nav id="sidebar" class="visible"> <!-- Add 'visible' class initially for messages.html -->
+        <nav id="sidebar" class="visible"> 
             <div>
                 <a id="profile-sidebar-btn" class="sidebar-nav-item" href="profile.html">Profile</a>
                 <a id="expenses-sidebar-btn" class="sidebar-nav-item" href="dashboard.html">Expenses</a>
@@ -26,9 +24,7 @@
             </div>
             <button id="logout-sidebar-button" class="sidebar-nav-item">LOG OUT</button>
         </nav>
-
         <div id="main-content">
-            <!-- Messages Section -->
             <div id="messages-section" class="expense-card">
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Send a Message</h2>
 
@@ -49,7 +45,6 @@
                 </form>
                 <div id="contact-message-box" class="message-box hidden"></div>
             </div>
-            <!-- End Messages Section -->
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
