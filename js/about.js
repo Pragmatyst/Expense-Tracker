@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             app = initializeApp(firebaseConfig);
             auth = getAuth(app);
             console.log("Firebase initialized in about.js successfully.");
-            
+
             if (typeof __initial_auth_token !== 'undefined') {
                 await signInWithCustomToken(auth, __initial_auth_token);
                 console.log("Signed in with custom token in about.js.");
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Function to handle sidebar navigation clicks
     const handleSidebarClick = (event, pageUrl) => {
-        event.preventDefault(); 
+        event.preventDefault();
         window.location.href = pageUrl;
     };
 
@@ -80,24 +80,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Handle logout button click
-    if (logoutBtn && auth) { 
+    if (logoutBtn && auth) {
         logoutBtn.addEventListener('click', async () => {
             try {
                 await signOut(auth);
                 console.log('User logged out successfully from about.js.');
-    
+
                 window.location.href = 'dashboard.html';
             } catch (error) {
                 console.error("Logout error from about.js:", error);
-      
+
             }
         });
     } else if (logoutBtn) {
         console.warn("Firebase Auth not initialized when attaching logout listener in about.js.");
-      
+
         logoutBtn.addEventListener('click', () => {
             console.log('Attempting redirect as fallback for logout.');
-            window.location.href = 'dashboard.html'; 
+            window.location.href = 'dashboard.html';
         });
     }
 

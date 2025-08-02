@@ -1,29 +1,28 @@
- /* Custom styles for Inter font and specific colors */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #333;
-            /* Dark background similar to the image */
-        }
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #333;
 
-        .sidebar-active-link {
-            background-color: #6b46c1;
-            color: white;
-        }
+}
 
-        .message-box {
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            margin-top: 1rem;
-            text-align: center;
-            font-weight: 500;
-        }
+.sidebar-active-link {
+    background-color: #6b46c1;
+    color: white;
+}
 
-        .message-box.success {
-            background-color: #d1fae5;
-            color: #065f46;
-        }
+.message-box {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: 500;
+}
 
-        .message-box.error {
-            background-color: #fee2e2;
-            color: #991b1b;
-        }
+.message-box.success {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.message-box.error {
+    background-color: #fee2e2;
+    color: #991b1b;
+}

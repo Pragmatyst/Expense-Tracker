@@ -1,6 +1,3 @@
-// graphs.js
-// This script fetches expense and investment data and renders a line graph using Chart.js.
-
 // --- Firebase imports ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import {
@@ -48,10 +45,9 @@ const noDataMessage = document.getElementById('no-data-message');
 const sidebar = document.getElementById('sidebar');
 const monthSelect = document.getElementById('month-select');
 
-let myChart = null; // Variable to hold the Chart.js instance
+let myChart = null;
 
 // --- Helper Functions ---
-// Function to extract the month (YYYY-MM) from a date string (YYYY-MM-DD)
 function getMonthFromDate(dateString) {
     if (!dateString) return null;
     return dateString.substring(0, 7);
@@ -109,7 +105,7 @@ function renderChart(expensesData, investmentsData, selectedMonth) {
         expenseTotals = labels.map(month => monthlyExpenses[month] || 0);
         investmentTotals = labels.map(month => monthlyInvestments[month] || 0);
     }
-    
+
     // Check if there is any data to display
     const hasData = expenseTotals.some(amount => amount > 0) || investmentTotals.some(amount => amount > 0);
     if (!hasData) {
@@ -126,7 +122,7 @@ function renderChart(expensesData, investmentsData, selectedMonth) {
         myLineChartCanvas.classList.remove('hidden');
     }
 
-    // If a chart instance already exists, destroy it before creating a new one
+
     if (myChart) {
         myChart.destroy();
     }
@@ -139,7 +135,7 @@ function renderChart(expensesData, investmentsData, selectedMonth) {
             datasets: [{
                 label: 'Expenses',
                 data: expenseTotals,
-                borderColor: 'rgb(220, 38, 38)', // Red
+                borderColor: 'rgb(220, 38, 38)',
                 backgroundColor: 'rgba(220, 38, 38, 0.5)',
                 borderWidth: 2,
                 tension: 0.4,
@@ -148,7 +144,7 @@ function renderChart(expensesData, investmentsData, selectedMonth) {
             }, {
                 label: 'Investments',
                 data: investmentTotals,
-                borderColor: 'rgb(34, 197, 94)', // Green
+                borderColor: 'rgb(34, 197, 94)',
                 backgroundColor: 'rgba(34, 197, 94, 0.5)',
                 borderWidth: 2,
                 tension: 0.4,
@@ -184,7 +180,7 @@ function renderChart(expensesData, investmentsData, selectedMonth) {
                 },
                 tooltip: {
                     callbacks: {
-                        title: function(tooltipItems) {
+                        title: function (tooltipItems) {
                             return tooltipItems[0].label;
                         }
                     }
@@ -193,6 +189,20 @@ function renderChart(expensesData, investmentsData, selectedMonth) {
         }
     });
 }
+
+
+// --- Logout Functionality ---
+const logoutButton = document.getElementById('logout-sidebar-button');
+
+logoutButton.addEventListener('click', () => {
+    auth.signOut().then(() => {
+        // Redirect to the login page or dashboard after logout
+        window.location.href = "dashboard.html";
+        console.log("User signed out successfully.");
+    }).catch((error) => {
+        console.error("Error signing out:", error);
+    });
+});
 
 // --- Main application logic ---
 onAuthStateChanged(auth, async (user) => {
@@ -214,7 +224,7 @@ onAuthStateChanged(auth, async (user) => {
                     ...investmentsData.map(item => getMonthFromDate(item.date))
                 ]);
                 const sortedMonths = Array.from(allMonths).filter(Boolean).sort();
-                
+
                 populateMonthDropdown(sortedMonths);
                 renderChart(expensesData, investmentsData, monthSelect.value);
             }

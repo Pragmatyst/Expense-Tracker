@@ -26,7 +26,6 @@ let auth;
 let userId = null;
 let isAuthReady = false;
 
-// User provided firebaseConfig directly, so use it.
 const firebaseConfig = {
     apiKey: "AIzaSyBmcBMtmd_DDPUiSRnzYiuspBC-GPKeAso",
     authDomain: "expensetracker-b0af0.firebaseapp.com",
@@ -36,7 +35,7 @@ const firebaseConfig = {
     appId: "1:837224581675:web:7cbb65f59b9622cc44386e"
 };
 
-// Get __app_id from Canvas environment
+
 const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 
 
@@ -389,7 +388,12 @@ signupForm.addEventListener('submit', async (e) => {
 
     try {
         await createUserWithEmailAndPassword(auth, email, password);
-        displayMessage("auth-message", "Account created and logged in successfully!", "success");
+        // After successful signup, sign the user out immediately.
+        await signOut(auth);
+        displayMessage("auth-message", "Account created successfully! Please log in.", "success");
+        // Redirect to the login form
+        toggleAuthForms('login');
+        signupForm.reset(); // Clear the signup form fields
     } catch (error) {
         console.error("Sign up error:", error);
         let errorMessage = "Failed to create account. Please try again.";

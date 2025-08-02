@@ -1,5 +1,3 @@
-/* style.css */
-
 body {
     font-family: 'Inter', sans-serif;
     background-color: #333;
@@ -10,7 +8,7 @@ body {
     min-height: 100vh;
 }
 
-/* Main application wrapper to handle layout */
+
 #app-wrapper {
     display: flex;
     width: 100%;
@@ -22,7 +20,7 @@ body {
     margin: auto;
 }
 
-/* Sidebar styling */
+
 #sidebar {
     width: 250px;
     background-color: #4a148c;
@@ -34,16 +32,16 @@ body {
     display: none;
 }
 
-/* When sidebar should be visible, apply flex */
+
 #sidebar.visible {
     display: flex;
 }
 
-/* ADDED: Styling for the div that wraps sidebar navigation items */
-#sidebar > div {
-    display: flex; /* Make it a flex container */
-    flex-direction: column; /* Stack children vertically */
-    margin-bottom: 2rem; /* Optional: Adds space between nav items and logout button */
+
+#sidebar>div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
 }
 
 .sidebar-nav-item {
@@ -56,18 +54,19 @@ body {
     text-align: left;
     border-radius: 0.5rem;
     transition: background-color 0.2s ease-in-out;
-    display: block; 
+    display: block;
     text-decoration: none;
 }
 
 .sidebar-nav-item:hover {
     background-color: #7b29b0;
 }
+
 /* Active state for sidebar items */
 .sidebar-nav-item.active-sidebar-item {
-    background-color: #7b29b0; 
-    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.5); 
-    color: white; 
+    background-color: #7b29b0;
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.5);
+    color: white;
 }
 
 #logout-sidebar-button {
@@ -79,7 +78,7 @@ body {
     background-color: #ef4444;
 }
 
-/* Main content area */
+
 #main-content {
     flex-grow: 1;
     background-color: #2b2b2b;
@@ -90,7 +89,7 @@ body {
     overflow-y: auto;
 }
 
-/* Expense tracker card (now inside main-content) */
+
 .expense-card {
     background-color: #ffffff;
     border-radius: 1rem;
@@ -102,9 +101,13 @@ body {
     flex-direction: column;
     gap: 1.5rem;
 }
-input, button, select {
+
+input,
+button,
+select {
     border-radius: 0.5rem;
 }
+
 .message-box {
     padding: 0.75rem;
     border-radius: 0.5rem;
@@ -112,48 +115,55 @@ input, button, select {
     text-align: center;
     font-weight: 500;
 }
+
 .message-box.success {
     background-color: #d1fae5;
     color: #065f46;
 }
+
 .message-box.error {
     background-color: #fee2e2;
     color: #991b1b;
 }
 
-/* Specific styles for the login/signup buttons to match the new scheme */
-#show-login, #show-signup {
+
+#show-login,
+#show-signup {
     transition: all 0.2s ease-in-out;
 }
-#show-login.active, #show-signup.active {
+
+#show-login.active,
+#show-signup.active {
     background-color: #4a148c;
     color: white;
 }
-#show-login:not(.active), #show-signup:not(.active) {
+
+#show-login:not(.active),
+#show-signup:not(.active) {
     background-color: #e0e7ff;
     color: #4a148c;
 }
 
-/* Styles for Add Expense/Investment buttons */
+
 #add-expense-form button[type="submit"],
 #add-investment-form button[type="submit"] {
-    background-color: #6a1b9a; 
+    background-color: #6a1b9a;
     color: white;
     font-weight: 600;
     padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
     transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #add-expense-form button[type="submit"]:hover,
 #add-investment-form button[type="submit"]:hover {
-    background-color: #7b29b0; 
-    transform: translateY(-1px); 
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); 
+    background-color: #7b29b0;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* --- New Custom Alert Box Styles (added here) --- */
+
 .custom-alert-modal {
     position: fixed;
     top: 0;
@@ -166,9 +176,11 @@ input, button, select {
     align-items: center;
     z-index: 1000;
 }
+
 .custom-alert-modal.hidden {
     display: none;
 }
+
 .custom-alert-content {
     background-color: #ffffff;
     padding: 2rem;
@@ -178,16 +190,19 @@ input, button, select {
     max-width: 20rem;
     text-align: center;
 }
+
 .custom-alert-content h3 {
     font-size: 1.25rem;
     font-weight: bold;
     margin-bottom: 1rem;
 }
+
 .custom-alert-content p {
     font-size: 1rem;
     color: #4b5563;
     margin-bottom: 1.5rem;
 }
+
 #custom-alert-ok-btn {
     background-color: #6a1b9a;
     color: white;
@@ -198,18 +213,19 @@ input, button, select {
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
 }
+
 #custom-alert-ok-btn:hover {
     background-color: #7b29b0;
 }
 
 
-/* Responsive adjustments for dashboard */
 @media (max-width: 768px) {
     #app-wrapper {
         flex-direction: column;
         min-height: 100vh;
         border-radius: 0;
     }
+
     #sidebar {
         width: 100%;
         padding: 1rem;
@@ -218,26 +234,30 @@ input, button, select {
         justify-content: center;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
-    /* Adjusted for mobile: Make sidebar nav items behave differently */
-    #sidebar > div {
-        flex-direction: row; 
+
+    #sidebar>div {
+        flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
-        margin-bottom: 0; 
+        margin-bottom: 0;
     }
+
     .sidebar-nav-item {
-        margin: 0.5rem; 
+        margin: 0.5rem;
         padding: 0.75rem 1rem;
         flex-grow: 1;
         text-align: center;
     }
+
     #logout-sidebar-button {
         margin-top: 0;
     }
+
     #main-content {
         padding: 1rem;
         align-items: center;
     }
+
     .expense-card {
         max-width: 100%;
         padding: 1.5rem;
