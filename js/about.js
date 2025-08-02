@@ -1,17 +1,12 @@
-// This JavaScript file will handle any specific interactions for the about page.
-// It now includes Firebase initialization to handle direct logout.
-
 // Firebase imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import {
     getAuth,
     signOut,
-    signInWithCustomToken, // Added for initial auth if needed by Canvas environment
-    signInAnonymously // Added for initial auth if needed by Canvas environment
+    signInWithCustomToken,
+    signInAnonymously
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-// Firebase configuration (copied from your app.js)
-// IMPORTANT: In a real application, consider a more secure way to manage API keys.
 const firebaseConfig = {
     apiKey: "AIzaSyBmcBMtmd_DDPUiSRnzYiuspBC-GPKeAso",
     authDomain: "expensetracker-b0af0.firebaseapp.com",
@@ -31,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             app = initializeApp(firebaseConfig);
             auth = getAuth(app);
             console.log("Firebase initialized in about.js successfully.");
-
+            
             if (typeof __initial_auth_token !== 'undefined') {
                 await signInWithCustomToken(auth, __initial_auth_token);
                 console.log("Signed in with custom token in about.js.");
@@ -56,7 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Function to handle sidebar navigation clicks
     const handleSidebarClick = (event, pageUrl) => {
-        event.preventDefault(); // Prevent default link behavior
+        event.preventDefault(); 
         window.location.href = pageUrl;
     };
 
@@ -85,24 +80,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Handle logout button click
-    if (logoutBtn && auth) {
+    if (logoutBtn && auth) { 
         logoutBtn.addEventListener('click', async () => {
             try {
                 await signOut(auth);
                 console.log('User logged out successfully from about.js.');
+    
                 window.location.href = 'dashboard.html';
             } catch (error) {
                 console.error("Logout error from about.js:", error);
+      
             }
         });
     } else if (logoutBtn) {
         console.warn("Firebase Auth not initialized when attaching logout listener in about.js.");
-        // Fallback if auth is not ready, though with async init it should be
+      
         logoutBtn.addEventListener('click', () => {
             console.log('Attempting redirect as fallback for logout.');
-            window.location.href = 'dashboard.html'; // Fallback redirect
+            window.location.href = 'dashboard.html'; 
         });
     }
+
 
     // Set the 'About' sidebar item as active-sidebar-item when the page loads
     if (aboutBtn) {

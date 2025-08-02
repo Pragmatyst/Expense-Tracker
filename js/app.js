@@ -15,7 +15,8 @@ import {
     onSnapshot,
     deleteDoc,
     doc,
-    serverTimestamp
+    serverTimestamp,
+    updateDoc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 // --- Firebase Initialization ---
@@ -56,7 +57,6 @@ const mainContent = document.getElementById('main-content');
 const authSection = document.getElementById('auth-section');
 const expenseTrackerSection = document.getElementById('expense-tracker-section');
 const investmentSection = document.getElementById('investment-section');
-// const contactUsSection = document.getElementById('contact-us-section'); 
 const showLoginBtn = document.getElementById('show-login');
 const showSignupBtn = document.getElementById('show-signup');
 const loginForm = document.getElementById('login-form');
@@ -75,7 +75,7 @@ const expensesSidebarBtn = document.getElementById('expenses-sidebar-btn');
 const investmentsSidebarBtn = document.getElementById('investments-sidebar-btn');
 const aboutSidebarBtn = document.getElementById('about-sidebar-btn');
 const messagesSidebarBtn = document.getElementById('messages-sidebar-btn');
-// const contactUsSidebarBtn = document.getElementById('contact-us-sidebar-btn'); // REMOVED
+
 
 // Expense Form Elements
 const addExpenseForm = document.getElementById('add-expense-form');
@@ -98,6 +98,115 @@ const totalInvestmentsSpan = document.getElementById('total-investments');
 const investmentMessageDiv = document.getElementById('investment-message');
 const noInvestmentsMessage = document.getElementById('no-investments-message');
 
+// --- New DOM Elements for Edit Modals (Add these) ---
+const editExpenseModal = document.getElementById('edit-expense-modal');
+editExpenseModal.className = 'fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden flex items-center justify-center';
+editExpenseModal.innerHTML = `
+    <div class="relative p-6 border w-96 shadow-lg rounded-md bg-white">
+        <h3 class="text-xl font-bold mb-4">Edit Expense</h3>
+        <form id="edit-expense-form-inner" class="flex flex-col gap-3">
+            <input type="hidden" id="edit-expense-id">
+            <input type="text" id="edit-expense-description" placeholder="Description"
+                class="p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
+                required>
+            <select id="edit-expense-category"
+                class="p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
+                required>
+                <option value="Food">Food</option>
+                <option value="Transportation">Transportation</option>
+                <option value="Housing">Housing</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Education">Education</option>
+                <option value="Other">Other</option>
+            </select>
+            <input type="number" id="edit-expense-amount" placeholder="Amount"
+                class="p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
+                step="0.01" required>
+            <input type="date" id="edit-expense-date"
+                class="p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
+                required>
+            <div class="flex justify-end gap-2 mt-4">
+                <button type="button" id="cancel-edit-expense" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">Cancel</button>
+                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Save Changes</button>
+            </div>
+        </form>
+        <div id="edit-expense-message" class="message-box hidden mt-3"></div>
+    </div>
+`;
+
+const editInvestmentModal = document.getElementById('edit-investment-modal');
+editInvestmentModal.className = 'fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden flex items-center justify-center';
+editInvestmentModal.innerHTML = `
+    <div class="relative p-6 border w-96 shadow-lg rounded-md bg-white">
+        <h3 class="text-xl font-bold mb-4">Edit Investment</h3>
+        <form id="edit-investment-form-inner" class="flex flex-col gap-3">
+            <input type="hidden" id="edit-investment-id">
+            <input type="text" id="edit-investment-name" placeholder="Investment Name (e.g., Stock, Crypto)"
+                class="p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
+                required>
+            <input type="number" id="edit-investment-amount" placeholder="Amount Invested"
+                class="p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
+                step="0.01" required>
+            <input type="date" id="edit-investment-date"
+                class="p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
+                required>
+            <div class="flex justify-end gap-2 mt-4">
+                <button type="button" id="cancel-edit-investment" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">Cancel</button>
+                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Save Changes</button>
+            </div>
+        </form>
+        <div id="edit-investment-message" class="message-box hidden mt-3"></div>
+    </div>
+`;
+
+// Get elements from the newly created modals
+const editExpenseIdInput = document.getElementById('edit-expense-id');
+const editExpenseDescriptionInput = document.getElementById('edit-expense-description');
+const editExpenseCategorySelect = document.getElementById('edit-expense-category');
+const editExpenseAmountInput = document.getElementById('edit-expense-amount');
+const editExpenseDateInput = document.getElementById('edit-expense-date');
+const editExpenseForm = document.getElementById('edit-expense-form-inner');
+const cancelEditExpenseBtn = document.getElementById('cancel-edit-expense');
+const editExpenseMessageDiv = document.getElementById('edit-expense-message');
+
+const editInvestmentIdInput = document.getElementById('edit-investment-id');
+const editInvestmentNameInput = document.getElementById('edit-investment-name');
+const editInvestmentAmountInput = document.getElementById('edit-investment-amount');
+const editInvestmentDateInput = document.getElementById('edit-investment-date');
+const editInvestmentForm = document.getElementById('edit-investment-form-inner');
+const cancelEditInvestmentBtn = document.getElementById('cancel-edit-investment');
+const editInvestmentMessageDiv = document.getElementById('edit-investment-message');
+
+
+// --- New Custom Alert Box (added here) ---
+const customAlertModal = document.createElement('div');
+customAlertModal.id = 'custom-alert-modal';
+customAlertModal.className = 'custom-alert-modal hidden';
+customAlertModal.innerHTML = `
+    <div class="custom-alert-content">
+        <h3 id="custom-alert-title"></h3>
+        <p id="custom-alert-message"></p>
+        <button id="custom-alert-ok-btn">OK</button>
+    </div>
+`;
+document.body.appendChild(customAlertModal);
+
+const customAlertTitle = document.getElementById('custom-alert-title');
+const customAlertMessage = document.getElementById('custom-alert-message');
+const customAlertOkBtn = document.getElementById('custom-alert-ok-btn');
+
+function showAlert(title, message) {
+    customAlertTitle.textContent = title;
+    customAlertMessage.textContent = message;
+    customAlertModal.classList.remove('hidden');
+}
+
+customAlertOkBtn.addEventListener('click', () => {
+    customAlertModal.classList.add('hidden');
+});
 
 // --- Helper Functions ---
 function displayMessage(elementId, message, type) {
@@ -109,7 +218,7 @@ function displayMessage(elementId, message, type) {
         setTimeout(() => {
             element.classList.add('hidden');
             element.textContent = '';
-        }, 5000); // Hide after 5 seconds
+        }, 5000);
     }
 }
 
@@ -125,7 +234,7 @@ function toggleAuthForms(formToShow) {
         showSignupBtn.classList.add('active');
         showLoginBtn.classList.remove('active');
     }
-    authMessageDiv.classList.add('hidden'); // Clear any previous auth messages
+    authMessageDiv.classList.add('hidden');
 }
 
 function setActiveSidebarItem(activeBtn) {
@@ -154,7 +263,7 @@ function showSection(sectionToShow, activeSidebarBtn = null) {
 }
 
 function renderExpenses(currentExpenses) {
-    expensesListDiv.innerHTML = ''; // Clear previous list
+    expensesListDiv.innerHTML = '';
     let total = 0;
 
     if (currentExpenses.length === 0) {
@@ -179,7 +288,15 @@ function renderExpenses(currentExpenses) {
                             <p class="text-sm text-gray-500">Date: ${formattedDate}</p>
                             <p class="text-sm text-gray-500">Amount: $${expense.amount.toFixed(2)}</p>
                         </div>
-                        <button data-id="${expense.id}" class="delete-expense-btn px-3 py-1 bg-red-100 text-red-700 rounded-md text-sm font-medium hover:bg-red-200 transition duration-150 ease-in-out">Delete</button>
+                        <div class="flex items-center gap-2">
+                            <button data-id="${expense.id}"
+                                data-description="${expense.description}"
+                                data-category="${expense.category}"
+                                data-amount="${expense.amount}"
+                                data-date="${expense.date}"
+                                class="edit-expense-btn px-3 py-1 bg-blue-100 text-blue-700 rounded-md text-sm font-medium hover:bg-blue-200 transition duration-150 ease-in-out">Edit</button>
+                            <button data-id="${expense.id}" class="delete-expense-btn px-3 py-1 bg-red-100 text-red-700 rounded-md text-sm font-medium hover:bg-red-200 transition duration-150 ease-in-out">Delete</button>
+                        </div>
                     `;
             expensesListDiv.appendChild(expenseItem);
             total += expense.amount;
@@ -190,7 +307,7 @@ function renderExpenses(currentExpenses) {
 
 
 function renderInvestments(currentInvestments) {
-    investmentsListDiv.innerHTML = ''; // Clear previous list
+    investmentsListDiv.innerHTML = '';
     let total = 0;
 
     if (currentInvestments.length === 0) {
@@ -214,7 +331,14 @@ function renderInvestments(currentInvestments) {
                             <p class="text-sm text-gray-500">Date: ${formattedDate}</p>
                             <p class="text-sm text-gray-500">Amount: $${investment.amount.toFixed(2)}</p>
                         </div>
-                        <button data-id="${investment.id}" class="delete-investment-btn px-3 py-1 bg-red-100 text-red-700 rounded-md text-sm font-medium hover:bg-red-200 transition duration-150 ease-in-out">Delete</button>
+                        <div class="flex items-center gap-2">
+                            <button data-id="${investment.id}"
+                                data-name="${investment.name}"
+                                data-amount="${investment.amount}"
+                                data-date="${investment.date}"
+                                class="edit-investment-btn px-3 py-1 bg-blue-100 text-blue-700 rounded-md text-sm font-medium hover:bg-blue-200 transition duration-150 ease-in-out">Edit</button>
+                            <button data-id="${investment.id}" class="delete-investment-btn px-3 py-1 bg-red-100 text-red-700 rounded-md text-sm font-medium hover:bg-red-200 transition duration-150 ease-in-out">Delete</button>
+                        </div>
                     `;
             investmentsListDiv.appendChild(investmentItem);
             total += investment.amount;
@@ -302,13 +426,6 @@ investmentsSidebarBtn.addEventListener('click', () => {
     showSection(investmentSection, investmentsSidebarBtn);
 });
 
-aboutSidebarBtn.addEventListener('click', () => {
-    showSection(aboutSidebarSection, aboutSidebarBtn);
-});
-
-
-
-
 
 // Handle Adding New Expense
 addExpenseForm.addEventListener('submit', async (e) => {
@@ -368,8 +485,66 @@ expensesListDiv.addEventListener('click', async (e) => {
             console.error("Error deleting expense:", error);
             displayMessage("expense-message", "Failed to delete expense. Please try again.", "error");
         }
+    } else if (e.target.classList.contains('edit-expense-btn')) {
+        const expenseId = e.target.dataset.id;
+        const description = e.target.dataset.description;
+        const category = e.target.dataset.category;
+        const amount = e.target.dataset.amount;
+        const date = e.target.dataset.date;
+
+        // Populate the edit modal fields
+        editExpenseIdInput.value = expenseId;
+        editExpenseDescriptionInput.value = description;
+        editExpenseCategorySelect.value = category;
+        editExpenseAmountInput.value = amount;
+        editExpenseDateInput.value = date;
+
+        // Show the edit modal
+        editExpenseModal.classList.remove('hidden');
     }
 });
+
+// Handle submitting the edited expense
+editExpenseForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const expenseId = editExpenseIdInput.value;
+    const description = editExpenseDescriptionInput.value.trim();
+    const category = editExpenseCategorySelect.value;
+    const amount = parseFloat(editExpenseAmountInput.value);
+    const date = editExpenseDateInput.value;
+
+    if (!description || !category || isNaN(amount) || amount <= 0 || !date) {
+        displayMessage("edit-expense-message", "Please fill in all fields: description, category, amount, and date.", "error");
+        return;
+    }
+
+    if (!userId) {
+        displayMessage("edit-expense-message", "User not authenticated. Please log in.", "error");
+        return;
+    }
+
+    try {
+        const expenseRef = doc(db, `artifacts/${appId}/users/${userId}/expenses`, expenseId);
+        await updateDoc(expenseRef, {
+            description: description,
+            category: category,
+            amount: amount,
+            date: date
+        });
+        displayMessage("expense-message", "Expense updated successfully!", "success");
+        editExpenseModal.classList.add('hidden');
+    } catch (error) {
+        console.error("Error updating expense:", error);
+        displayMessage("edit-expense-message", "Failed to update expense. Please try again.", "error");
+    }
+});
+
+// Cancel edit expense
+cancelEditExpenseBtn.addEventListener('click', () => {
+    editExpenseModal.classList.add('hidden');
+    editExpenseMessageDiv.classList.add('hidden');
+});
+
 
 // Handle Adding New Investment
 addInvestmentForm.addEventListener('submit', async (e) => {
@@ -426,7 +601,60 @@ investmentsListDiv.addEventListener('click', async (e) => {
             console.error("Error deleting investment:", error);
             displayMessage("investment-message", "Failed to delete investment. Please try again.", "error");
         }
+    } else if (e.target.classList.contains('edit-investment-btn')) {
+        const investmentId = e.target.dataset.id;
+        const name = e.target.dataset.name;
+        const amount = e.target.dataset.amount;
+        const date = e.target.dataset.date;
+
+        // Populate the edit modal fields
+        editInvestmentIdInput.value = investmentId;
+        editInvestmentNameInput.value = name;
+        editInvestmentAmountInput.value = amount;
+        editInvestmentDateInput.value = date;
+
+        // Show the edit modal
+        editInvestmentModal.classList.remove('hidden');
     }
+});
+
+// Handle submitting the edited investment
+editInvestmentForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const investmentId = editInvestmentIdInput.value;
+    const name = editInvestmentNameInput.value.trim();
+    const amount = parseFloat(editInvestmentAmountInput.value);
+    const date = editInvestmentDateInput.value;
+
+    if (!name || isNaN(amount) || amount <= 0 || !date) {
+        displayMessage("edit-investment-message", "Please fill in all fields: name, amount, and date.", "error");
+        return;
+    }
+
+    if (!userId) {
+        displayMessage("edit-investment-message", "User not authenticated. Please log in.", "error");
+        return;
+    }
+
+    try {
+        const investmentRef = doc(db, `artifacts/${appId}/users/${userId}/investments`, investmentId);
+        await updateDoc(investmentRef, {
+            name: name,
+            amount: amount,
+            date: date
+        });
+        displayMessage("investment-message", "Investment updated successfully!", "success");
+        editInvestmentModal.classList.add('hidden');
+    } catch (error) {
+        console.error("Error updating investment:", error);
+        displayMessage("edit-investment-message", "Failed to update investment. Please try again.", "error");
+    }
+});
+
+// Cancel edit investment
+cancelEditInvestmentBtn.addEventListener('click', () => {
+    editInvestmentModal.classList.add('hidden');
+    editInvestmentMessageDiv.classList.add('hidden');
 });
 
 

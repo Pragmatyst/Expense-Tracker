@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphs | Expense Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/graphs.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app-wrapper">
+        <nav id="sidebar">
+            <div>
+                <a id="profile-sidebar-btn" class="sidebar-nav-item" href="profile.html">Profile</a>
+                <a id="expenses-sidebar-btn" class="sidebar-nav-item" href="dashboard.html">Expenses</a>
+                <a id="investments-sidebar-btn" class="sidebar-nav-item" href="dashboard.html">Investments</a>
+                <a id="graphs-sidebar-btn" class="sidebar-nav-item active-sidebar-item" href="graphs.html">Graphs</a>
+                <a id="about-sidebar-btn" class="sidebar-nav-item" href="about-page.html">About</a>
+                <a id="messages-sidebar-btn" class="sidebar-nav-item" href="messages.html">Contact Us</a>
+            </div>
+            <button id="logout-sidebar-button" class="sidebar-nav-item">LOG OUT</button>
+        </nav>
+
+        <div id="main-content">
+            <div id="graphs-section" class="graphs-card">
+                <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">Investment and Expense Trends</h2>
+                
+                <!-- New month selection dropdown -->
+                <div class="flex justify-center items-center gap-4 mb-4">
+                    <label for="month-select" class="text-gray-700 font-medium">View by Month:</label>
+                    <select id="month-select" class="p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out">
+                        <option value="all">All Time</option>
+                    </select>
+                </div>
+
+                <div class="relative h-96 w-full">
+                    <canvas id="myLineChart"></canvas>
+                </div>
+                <div id="no-data-message" class="text-center text-gray-500 py-8 hidden">
+                    <p>No data available to display. Please add some expenses or investments.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="../js/graphs.js"></script>
+</body>
+
+</html>

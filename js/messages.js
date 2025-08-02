@@ -1,11 +1,10 @@
-// Firebase imports (Ensure these versions match your app.js)
+// Firebase imports 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut, signInWithCustomToken, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 
 // --- Firebase Initialization ---
-// IMPORTANT: Use your actual Firebase config from app.js or your Firebase project.
 const firebaseConfig = {
     apiKey: "AIzaSyBmcBMtmd_DDPUiSRnzYiuspBC-GPKeAso", 
     authDomain: "expensetracker-b0af0.firebaseapp.com",
@@ -31,7 +30,6 @@ try {
     displayMessage("contact-message-box", "Error initializing app. Please try again later.", "error");
 }
 
-// --- EmailJS Initialization ---
 // Public Key has been replaced with the one you provided.
 emailjs.init("syM66z6Ba6eu2T2YD");
 
@@ -73,7 +71,7 @@ function setActiveSidebarItem(activeBtn) {
 
 // Handle Contact Form Submission with EmailJS
 contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault(); 
 
     const serviceID = 'service_z8gn87f';  
     const templateID = 'template_l3mnc8r'; 
@@ -117,7 +115,7 @@ if (logoutSidebarButton) {
         console.log("Auth object at click:", auth);
         console.log("Current user at click before signOut:", auth.currentUser);
         try {
-            if (auth && auth.currentUser) { // Ensure auth and a current user exist
+            if (auth && auth.currentUser) { 
                 await signOut(auth);
                 displayMessage("contact-message-box", "Logged out successfully!", "success");
                 
@@ -139,7 +137,7 @@ if (logoutSidebarButton) {
 // --- Firebase Authentication State Listener ---
 onAuthStateChanged(auth, async (user) => {
     const sidebar = document.getElementById('sidebar');
-    console.log("onAuthStateChanged triggered. User:", user ? user.uid : "null"); // Log user state
+    console.log("onAuthStateChanged triggered. User:", user ? user.uid : "null"); 
     if (user) {
         // User is signed in.
         userId = user.uid;
@@ -161,7 +159,6 @@ onAuthStateChanged(auth, async (user) => {
         userId = null;
         sidebar.classList.remove('visible');
         console.log("Messages page: User logged out. Redirecting to dashboard.");
-        // Redirect to the dashboard (or login page) if not authenticated
         window.location.href = 'dashboard.html';
     }
 });
@@ -179,7 +176,7 @@ window.onload = async function() {
                 console.log("Signed in with custom token successfully.");
             } catch (error) {
                 console.error("Error signing in with custom token:", error);
-                await signInAnonymously(auth); // Fallback to anonymous
+                await signInAnonymously(auth); 
                 console.log("Signed in anonymously due to custom token error.");
             }
         } else {

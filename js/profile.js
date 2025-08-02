@@ -1,11 +1,11 @@
-// Firebase imports (Ensure these versions match your app.js)
+// Firebase imports 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 // --- Firebase Initialization ---
 const firebaseConfig = {
-    apiKey: "AIzaSyBmcBMtmd_DDPUiSRnzYiuspBC-GPKeAso", // Replace with your actual API Key
+    apiKey: "AIzaSyBmcBMtmd_DDPUiSRnzYiuspBC-GPKeAso",
     authDomain: "expensetracker-b0af0.firebaseapp.com",
     projectId: "expensetracker-b0af0",
     storageBucket: "expensetracker-b0af0.firebaseapp.com",
@@ -17,7 +17,7 @@ let app;
 let db;
 let auth;
 let userId = null;
-const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id'; // Using same appId logic
+const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 
 try {
     app = initializeApp(firebaseConfig);
@@ -31,7 +31,7 @@ try {
 
 // --- DOM Elements for Profile Page ---
 const profileNameDisplay = document.getElementById('profile-name-display');
-const profileOccupationDisplay = document.getElementById('profile-occupation-display'); // Placeholder for occupation
+const profileOccupationDisplay = document.getElementById('profile-occupation-display');
 const userIdDisplay = document.getElementById('user-id-display');
 
 const fullNameInput = document.getElementById('full-name');
@@ -41,7 +41,7 @@ const locationInput = document.getElementById('location');
 const bioTextarea = document.getElementById('bio');
 
 const saveProfileButton = document.getElementById('save-profile-button');
-const logoutButton = document.getElementById('logout-button'); // This is the logout button in profile.html
+const logoutButton = document.getElementById('logout-button');
 const profileMessageDiv = document.getElementById('profile-message');
 
 // --- Helper Functions ---
@@ -54,13 +54,12 @@ function displayMessage(elementId, message, type) {
         setTimeout(() => {
             element.classList.add('hidden');
             element.textContent = '';
-        }, 5000); // Hide after 5 seconds
+        }, 5000);
     }
 }
 
 async function fetchUserProfile(uid) {
     try {
-        // Fetch from 'users' collection, within the 'artifacts/{appId}' path
         const userDocRef = doc(db, `artifacts/${appId}/users`, uid);
         const docSnap = await getDoc(userDocRef);
 
@@ -70,21 +69,21 @@ async function fetchUserProfile(uid) {
 
             // Populate form fields
             fullNameInput.value = data.fullName || '';
-            emailInput.value = data.email || ''; // Email from Firestore or Auth
+            emailInput.value = data.email || '';
             phoneInput.value = data.phone || '';
             locationInput.value = data.location || '';
             bioTextarea.value = data.bio || '';
 
             // Update display elements
             profileNameDisplay.textContent = data.fullName || 'User Name';
-            profileOccupationDisplay.textContent = data.occupation || 'No Occupation Set'; // Assuming a 'occupation' field
+            profileOccupationDisplay.textContent = data.occupation || 'No Occupation Set';
             userIdDisplay.textContent = `User ID: ${uid}`;
             userIdDisplay.classList.remove('hidden');
         } else {
             console.log("No profile data found for user, setting initial data.");
-            // If no data exists, populate email from auth and save a default profile
+
             emailInput.value = auth.currentUser.email || '';
-            profileNameDisplay.textContent = auth.currentUser.email || 'User'; // Fallback to email for display
+            profileNameDisplay.textContent = auth.currentUser.email || 'User';
             userIdDisplay.textContent = `User ID: ${uid}`;
             userIdDisplay.classList.remove('hidden');
 
@@ -93,7 +92,7 @@ async function fetchUserProfile(uid) {
                 email: auth.currentUser.email,
                 fullName: auth.currentUser.displayName || '',
                 createdAt: new Date().toISOString(),
-                // Add other default fields if necessary
+
             }, { merge: true });
         }
     } catch (error) {
@@ -110,7 +109,7 @@ async function saveUserProfile() {
 
     const profileData = {
         fullName: fullNameInput.value.trim(),
-        email: emailInput.value.trim(), 
+        email: emailInput.value.trim(),
         phone: phoneInput.value.trim(),
         location: locationInput.value.trim(),
         bio: bioTextarea.value.trim(),
@@ -137,7 +136,7 @@ logoutButton.addEventListener('click', async () => {
     try {
         await signOut(auth);
         displayMessage("profile-message", "Logged out successfully!", "success");
-        // Redirect to dashboard or login page after logout
+
         window.location.href = 'dashboard.html';
     } catch (error) {
         console.error("Logout error:", error);
@@ -152,12 +151,12 @@ onAuthStateChanged(auth, (user) => {
         // User is signed in.
         userId = user.uid;
         console.log("Profile page: User logged in:", userId);
-        fetchUserProfile(userId); // Fetch and display profile data
+        fetchUserProfile(userId);
     } else {
         // User is signed out.
         userId = null;
         console.log("Profile page: User logged out. Redirecting to dashboard.");
- 
+
         window.location.href = 'dashboard.html';
     }
 });
@@ -165,7 +164,7 @@ onAuthStateChanged(auth, (user) => {
 // Initial load check (optional, as onAuthStateChanged handles most cases)
 window.addEventListener('load', () => {
     if (!auth.currentUser && !userId) {
-      
+
         console.log("Profile page loaded, no immediate user. Waiting for auth state.");
     }
 });
